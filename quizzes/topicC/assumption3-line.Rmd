@@ -1,0 +1,87 @@
+```{r data_generation_random, echo=FALSE, results='hide'}
+library(exams)
+
+# Pool of true and false statements for each assumption
+
+# Linearity statements
+linearity_true <- c("The relationship between the predictors and the outcome should be linear.",
+                    "Linearity ensures that the predictors have a straight-line relationship with the response variable.")
+linearity_false <- c("The relationship between predictors and the outcome does not need to be linear.",
+                     "Linearity is not an important assumption in linear regression.")
+
+# Normality statements
+normality_true <- c("Residuals should be normally distributed.",
+                    "Normality of residuals ensures that hypothesis testing produces valid results.")
+normality_false <- c("Residuals do not need to be normally distributed for linear regression to work.",
+                     "Normality is not an assumption for linear regression.")
+
+# Independence statements
+independence_true <- c("Observations should be independent of each other.",
+                       "Independence between observations ensures that there are no patterns in residuals.")
+independence_false <- c("Observations can be correlated without affecting the linear model.",
+                        "Independence of observations is not required for linear regression.")
+
+# Equal variance (Homoscedasticity) statements
+equal_variance_true <- c("Variance of residuals should be constant across all levels of predictors.",
+                         "Equal variance of residuals, or homoscedasticity, is required for linear regression.")
+equal_variance_false <- c("Variance of residuals can vary across predictor levels without affecting the model.",
+                          "Equal variance of residuals is not required for a valid linear model.")
+
+# Heteroscedasticity statements (which violates the assumption)
+heteroscedasticity_true <- c("Heteroscedasticity indicates unequal variance of residuals.",
+                             "Heteroscedasticity violates the assumption of equal variance.")
+heteroscedasticity_false <- c("Heteroscedasticity means equal variance of residuals.",
+                              "Heteroscedasticity is not related to the assumptions of linear regression.")
+
+# Select randomly from true or false statements for each assumption
+questions <- c(sample(c(linearity_true, linearity_false), 1),
+               sample(c(normality_true, normality_false), 1),
+               sample(c(independence_true, independence_false), 1),
+               sample(c(equal_variance_true, equal_variance_false), 1),
+               sample(c(heteroscedasticity_true, heteroscedasticity_false), 1))
+
+# Determine the correct solutions (TRUE for correct statements, FALSE for incorrect ones)
+solutions <- c(questions[1] %in% linearity_true,
+               questions[2] %in% normality_true,
+               questions[3] %in% independence_true,
+               questions[4] %in% equal_variance_true,
+               questions[5] %in% heteroscedasticity_true)
+
+# Explanations for each question
+explanations <- character(5)
+explanations[1] <- ifelse(solutions[1], "Linearity is a key assumption in linear regression.", "Linearity is indeed an assumption of the linear model.")
+explanations[2] <- ifelse(solutions[2], "Normality of residuals is crucial for valid hypothesis testing.", "Normality is an assumption, contrary to the statement.")
+explanations[3] <- ifelse(solutions[3], "Independence of observations is important to ensure unbiased estimates.", "Independence of observations is an assumption in linear regression.")
+explanations[4] <- ifelse(solutions[4], "Equal variance of residuals, or homoscedasticity, is a key assumption.", "Equal variance (homoscedasticity) is required for the linear model.")
+explanations[5] <- ifelse(solutions[5], "Heteroscedasticity violates the assumption of equal variance.", "Heteroscedasticity is the opposite of homoscedasticity and violates equal variance.")
+
+# Randomize order of questions
+Order <- sample(1:5)
+questions <- questions[Order]
+solutions <- solutions[Order]
+explanations <- explanations[Order]
+```
+
+Question
+========
+
+Which of the following statements is not an assumption of the linear model?
+```{r questionlist, echo = FALSE}  
+answerlist(questions, markup = "markdown")
+
+```
+Solution
+========
+
+The linear model assumptions are **L**inearity, **I**ndependence, **N**ormality and **E**qual variance (homoscedasticity). You can remember these via the LINE mnemonic.
+
+```{r solutionlist, echo = FALSE}
+answerlist(mchoice2string(solutions))
+```
+
+Meta-information
+================
+  
+extype: mchoice
+exsolution: `r mchoice2string(solutions)`
+exname: Multiple Choice

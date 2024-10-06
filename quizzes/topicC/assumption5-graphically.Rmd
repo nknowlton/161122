@@ -1,0 +1,170 @@
+```{r setup, echo=FALSE}
+# Load necessary libraries
+library(exams)
+library(ggplot2)
+
+# Function to generate data for LINE assumptions
+generate_data <- function(linearity_violation=FALSE, normality_violation=FALSE, equal_variance_violation=FALSE) {
+  set.seed(0)
+  x <- rnorm(200)
+  
+  if (linearity_violation) {
+    y <- sin(2 * pi * x) + rnorm(200, sd=0.1)  # Non-linear relationship
+  } else {
+    y <- 2 * x + rnorm(200, sd=0.1)  # Linear relationship
+  }
+  
+  if (normality_violation) {
+    residuals <- rexp(200)  # Non-normally distributed residuals
+  } else {
+    residuals <- rnorm(200, sd=0.1)  # Normally distributed residuals
+  }
+  
+  if (equal_variance_violation) {
+    y <- y + residuals * abs(x) * 3  # Extreme heteroscedasticity
+  } else {
+    y <- y + residuals  # Homoscedasticity (constant variance)
+  }
+  
+  data.frame(x=x, y=y)
+}
+
+# Function to generate plots
+plot_assumption_violation <- function(data, assumption, violation) {
+  plot <- ggplot(data, aes(x=x, y=y)) +
+    geom_point() +
+    labs(title=paste(assumption, ":", ifelse(violation, "Violation", "No Violation")),
+         x="X", y="Y")
+  print(plot)
+}
+
+# Generate data for each assumption plot
+data_linear <- generate_data(linearity_violation=FALSE)
+data_non_linear <- generate_data(linearity_violation=TRUE)
+
+data_homoscedastic <- generate_data(equal_variance_violation=FALSE)
+data_heteroscedastic <- generate_data(equal_variance_violation=TRUE)
+
+data_normal <- generate_data(normality_violation=FALSE)
+```{r setup, echo=FALSE}
+# Load necessary libraries
+library(exams)
+library(ggplot2)
+
+# Function to generate data for LINE assumptions
+generate_data <- function(linearity_violation=FALSE, normality_violation=FALSE, equal_variance_violation=FALSE) {
+  set.seed(0)
+  x <- rnorm(200)
+  
+  if (linearity_violation) {
+    y <- sin(2 * pi * x) + rnorm(200, sd=0.1)  # Non-linear relationship
+  } else {
+    y <- 2 * x + rnorm(200, sd=0.1)  # Linear relationship
+  }
+  
+  if (normality_violation) {
+    residuals <- rexp(200)  # Non-normally distributed residuals
+  } else {
+    residuals <- rnorm(200, sd=0.1)  # Normally distributed residuals
+  }
+  
+  if (equal_variance_violation) {
+    y <- y + residuals * abs(x) * 3  # Extreme heteroscedasticity
+  } else {
+    y <- y + residuals  # Homoscedasticity (constant variance)
+  }
+  
+  data.frame(x=x, y=y)
+}
+
+# Function to generate plots
+plot_assumption_violation <- function(data, assumption, violation) {
+  plot <- ggplot(data, aes(x=x, y=y)) +
+    geom_point() +
+    labs(title=paste(assumption, ":", ifelse(violation, "Violation", "No Violation")),
+         x="X", y="Y")
+  print(plot)
+}
+
+# Generate data for each assumption plot
+data_linear <- generate_data(linearity_violation=FALSE)
+data_non_linear <- generate_data(linearity_violation=TRUE)
+
+data_homoscedastic <- generate_data(equal_variance_violation=FALSE)
+data_heteroscedastic <- generate_data(equal_variance_violation=TRUE)
+
+data_normal <- generate_data(normality_violation=FALSE)
+data_non_normal <- generate_data(normality_violation=TRUE)
+
+```
+
+Question
+========
+
+Which of the following statements correctly describes one of the diagnostic plots used to assess a linear model?
+
+```{r questionlist, echo = FALSE, results = "asis"}
+
+questions <- character(3)
+solutions <- logical(3)
+explanations <- character(3)
+
+# Linearity
+if (runif(1) < 0.5) {
+  plot_assumption_violation(data_linear, "Linearity", FALSE)
+  questions[1] <- "Does the following plot violate the assumption of linearity?"
+  solutions[1] <- FALSE
+  explanations[1] <- "This plot shows a linear relationship, meaning the assumption of linearity is not violated."
+} else {
+  plot_assumption_violation(data_non_linear, "Linearity", TRUE)
+  questions[1] <- "Does the following plot violate the assumption of linearity?"
+  solutions[1] <- TRUE
+  explanations[1] <- "This plot shows a non-linear relationship, meaning the assumption of linearity is violated."
+}
+
+# Equal Variance (Homoscedasticity)
+if (runif(1) < 0.5) {
+  plot_assumption_violation(data_homoscedastic, "Equal Variance", FALSE)
+  questions[2] <- "Does the following plot violate the assumption of equal variance?"
+  solutions[2] <- FALSE
+  explanations[2] <- "This plot shows homoscedasticity, meaning the residual variance is constant across levels, so the assumption is not violated."
+} else {
+  plot_assumption_violation(data_heteroscedastic, "Equal Variance", TRUE)
+  questions[2] <- "Does the following plot violate the assumption of equal variance?"
+  solutions[2] <- TRUE
+  explanations[2] <- "This plot shows heteroscedasticity, meaning the residual variance is not constant across levels, so the assumption is violated."
+}
+
+# Normality
+if (runif(1) < 0.5) {
+  plot_assumption_violation(data_normal, "Normality", FALSE)
+  questions[3] <- "Does the following plot violate the assumption of normality?"
+  solutions[3] <- FALSE
+  explanations[3] <- "This plot shows normally distributed residuals, meaning the assumption of normality is not violated."
+} else {
+  plot_assumption_violation(data_non_normal, "Normality", TRUE)
+  questions[3] <- "Does the following plot violate the assumption of normality?"
+  solutions[3] <- TRUE
+  explanations[3] <- "This plot shows non-normally distributed residuals, meaning the assumption of normality is violated."
+}
+
+
+
+answerlist(questions, markup = "markdown")
+```
+
+Solution
+========
+
+  
+```{r solutionlist, echo = FALSE, results = "asis"}
+answerlist(ifelse(solutions, "True", "False"), explanations, markup="markdown")
+
+```
+
+Meta-information
+================
+  
+extype: mchoice
+exsolution: `r mchoice2string(solutions)`
+exname: Multiple Choice

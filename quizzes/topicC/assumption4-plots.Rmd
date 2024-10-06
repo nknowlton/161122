@@ -1,0 +1,90 @@
+```{r data_generation_diagnostics, echo=FALSE, results='hide'}
+library(exams)
+
+# True and False statements for each diagnostic plot
+
+# Residuals vs Fitted statements
+residuals_fitted_true <- c("The Residuals vs Fitted plot checks for non-linearity in the data.",
+                           "A Residuals vs Fitted plot helps detect if residuals have unequal variance (heteroscedasticity).")
+residuals_fitted_false <- c("The Residuals vs Fitted plot checks for the normality of residuals.",
+                            "In the Residuals vs Fitted plot, points should form a straight diagonal line.")
+
+# Normal Q-Q statements
+qqplot_true <- c("The Normal Q-Q plot checks whether residuals follow a normal distribution.",
+                 "In the Normal Q-Q plot, points should ideally lie on a straight diagonal line.")
+qqplot_false <- c("The Normal Q-Q plot checks for homoscedasticity (constant variance) of residuals.",
+                  "The Normal Q-Q plot is used to check for influential points in the dataset.")
+
+# Scale-Location (Spread-Location) statements
+scale_location_true <- c("The Scale-Location plot checks whether residuals have constant variance across fitted values.",
+                         "A Scale-Location plot is used to detect heteroscedasticity in the data.")
+scale_location_false <- c("The Scale-Location plot checks for linearity in the relationship between predictors and outcome.",
+                          "In the Scale-Location plot, points should follow a straight diagonal line to confirm normality.")
+
+# Residuals vs Leverage statements
+residuals_leverage_true <- c("The Residuals vs Leverage plot helps identify influential observations that can affect the model.",
+                             "High leverage points in the Residuals vs Leverage plot can indicate potential outliers.")
+residuals_leverage_false <- c("The Residuals vs Leverage plot checks for normality of residuals.",
+                              "In the Residuals vs Leverage plot, points should form a diagonal line to ensure linearity.")
+
+# Randomly select true or false statements for each diagnostic plot
+questions <- c(sample(c(residuals_fitted_true, residuals_fitted_false), 1),
+               sample(c(qqplot_true, qqplot_false), 1),
+               sample(c(scale_location_true, scale_location_false), 1),
+               sample(c(residuals_leverage_true, residuals_leverage_false), 1))
+
+# Determine the correct solutions (TRUE for correct statements, FALSE for incorrect ones)
+solutions <- c(questions[1] %in% residuals_fitted_true,
+               questions[2] %in% qqplot_true,
+               questions[3] %in% scale_location_true,
+               questions[4] %in% residuals_leverage_true)
+
+# Explanations for each question
+explanations <- character(4)
+explanations[1] <- ifelse(solutions[1], "The Residuals vs Fitted plot checks for non-linearity and heteroscedasticity.", 
+                          "The Residuals vs Fitted plot does not check for normality; it checks for non-linearity and unequal variance.")
+explanations[2] <- ifelse(solutions[2], "The Normal Q-Q plot is used to assess the normality of residuals.", 
+                          "The Normal Q-Q plot does not assess homoscedasticity or influential points; it checks for normality.")
+explanations[3] <- ifelse(solutions[3], "The Scale-Location plot helps detect heteroscedasticity in the data.", 
+                          "The Scale-Location plot is used to check for constant variance, not linearity or normality.")
+explanations[4] <- ifelse(solutions[4], "The Residuals vs Leverage plot helps identify influential points that could distort the model.", 
+                          "The Residuals vs Leverage plot is used to find influential points, not to check for normality or linearity.")
+
+# Randomize order of questions
+Order <- sample(1:4)
+questions <- questions[Order]
+solutions <- solutions[Order]
+explanations <- explanations[Order]
+
+```
+
+Question
+========
+
+Which of the following statements correctly describes one of the diagnostic plots used to assess a linear model?
+
+```{r questionlist, echo = FALSE, results = "asis"}
+answerlist(questions, markup = "markdown")
+```
+
+Solution
+========
+
+Here are the diagnostic plots and their purposes:
+
+    Residuals vs Fitted: Checks for non-linearity and heteroscedasticity.
+    Normal Q-Q: Checks whether residuals are normally distributed.
+    Scale-Location (Spread-Location): Checks for constant variance of residuals (homoscedasticity).
+    Residuals vs Leverage: Identifies influential observations (high leverage points) that can affect the model.
+  
+```{r solutionlist, echo = FALSE, results = "asis"}
+answerlist(mchoice2text(solutions, markup="markdown"), explanations, markup = "markdown")
+
+```
+
+Meta-information
+================
+  
+extype: mchoice
+exsolution: `r mchoice2string(solutions)`
+exname: Multiple Choice
