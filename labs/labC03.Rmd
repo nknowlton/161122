@@ -5,7 +5,7 @@ output:
     toc: yes
 ---
 
-```{r}
+```{r include=FALSE}
 library(tidyverse)
 ```
 

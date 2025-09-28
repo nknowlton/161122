@@ -68,20 +68,19 @@ Question
 Which of the following statements is not an assumption of the linear model?
 ```{r questionlist, echo = FALSE}  
 answerlist(questions, markup = "markdown")
-
 ```
 Solution
 ========
 
 The linear model assumptions are **L**inearity, **I**ndependence, **N**ormality and **E**qual variance (homoscedasticity). You can remember these via the LINE mnemonic.
 
-```{r solutionlist, echo = FALSE}
-answerlist(mchoice2string(solutions))
+```{r solutionlist, echo = FALSE, results = "asis"}
+answerlist(ifelse(solutions, "True", "False"), explanations, markup = "markdown")
 ```
 
 Meta-information
 ================
-  
-extype: mchoice
+extype: cloze
 exsolution: `r mchoice2string(solutions)`
-exname: Multiple Choice
+exclozetype: mchoice
+exname: Linear model assumptions

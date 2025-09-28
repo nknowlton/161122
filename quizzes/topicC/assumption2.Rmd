@@ -43,5 +43,5 @@ Meta-information
 ================
   
 extype: schoice
-exsolution: `r mchoice2string(solutions)`
+exsolution: `r as.numeric(solutions)`
 exname: Multiple Choice
