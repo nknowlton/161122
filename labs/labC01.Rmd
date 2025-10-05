@@ -3,11 +3,12 @@ title: "Workshop C01: Simple Linear Regression and Visualisation"
 output:
   html_document: 
     toc: yes
+    code_download: true
 ---
 
 ## Introduction
 
-From Week 9 to Week 12, we'll study the **linear model**. The linear model forms the basis of much statistical analysis. 
+From Weeks 10 to Week 12, we'll study the **linear model**. The linear model forms the basis of much statistical analysis. 
 
 Particularly, in this lab we will start looking at the **simple linear regression** which is the simplest linear model with one dependent variable $y$ and one independent variable $x$. 
 

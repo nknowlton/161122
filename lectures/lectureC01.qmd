@@ -2,7 +2,6 @@
 title: "297.101 Lecture C01"
 subtitle: "Simple Linear Regression"
 author: Dr. Nick Knowlton
-date: last-modified	
 format: 
   revealjs:
     embed-resources: true
