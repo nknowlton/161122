@@ -1,21 +1,40 @@
 ---
-title: "Lecture C02"
+title: "297.101 Lecture C02"
 subtitle: "Testing hypotheses and making predictions with linear models"
-output:
-  xaringan::moon_reader:
-  css: [default, default-fonts, "part_c.css"]
-    # mathjax: "https://cdn.bootcss.com/mathjax/2.7.3/MathJax.js?config=TeX-MML-AM_CHTML"
-  highlightStyle: tomorrow
-  highlightLines: true
-  countIncrementalSlides: false
-  ratio: "16:9"
-  slideNumberFormat: |
-        <div class="progress-bar-container">
-          </div>
-          <div class="progress-bar" style="width: calc(%current% / %total% * 100%);">
-editor_options:
-  chunk_output_type: console
+author: Dr. Nick Knowlton
+date: last-modified	
+format: 
+  revealjs:
+    embed-resources: true
+    theme: sky
+    css: ["part_c.css"]
+    slide-number: true
+    incremental: false
+    highlight-style: breezedark
+    highlight-lines: true
+    ratio: "16:9"
+    progress: true
+    
+    slideNumberFormat: "%current%/%total%"
+    logo: 660491-ls_black_whitoutunz.png
+    include-in-header:
+      - text: |
+         <style>
+          .reveal .slide-logo {
+             max-height: unset;
+             height: 100px;
+          }
+         </style>
+      - text: '<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">'
+execute:
+  output: true
+  eval: true
+  code-fold: true   # Add this to enable code folding
+editor: 
+  markdown: 
+    wrap: 72
 ---
+
 
 ```{r setup, include=FALSE}
 library(tidyverse)
@@ -24,6 +43,7 @@ library(knitr)
 library(ggplot2); theme_set(theme_bw(base_size=15))
 library(patchwork)
 library(fontawesome)
+library(xaringan)
 opts_chunk$set(dev.args=list(bg='transparent'), comment="", warning=FALSE, echo=FALSE)
 knitr::opts_chunk$set(echo = TRUE)
 knitr::opts_chunk$set(fig.dim=c(8,5), out.width="70%", fig.retina=2)
@@ -72,7 +92,7 @@ mod <- lm(Bodywt ~ Heartgirth, data=donkey); summary(mod)
 ```
 
 
-`r fa("atom") ` **First, let's discuss the `Coefficients` table.**
+<i class="fa fa-atom"></i> **First, let's discuss the `Coefficients` table.**
 
 ---
 
