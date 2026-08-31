@@ -588,11 +588,17 @@ $$
 
 ## Estimating the parameters
 
-<iframe src="https://shiny.massey.ac.nz/jcmarsha/leastsquares/" 
-    width="100%" 
-    height="90%" 
-    style="border: none; margin-top: 50px;">
-</iframe>
+::: {.regression-instructions}
+Adjust the proposed line, then reveal the least-squares fit to compare it
+with your intuition.
+:::
+
+```{ojs}
+//| echo: false
+
+import { regressionLab } from "./regression-lab.js"
+regressionLab({Inputs, Plot})
+```
 
 
 
